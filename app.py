@@ -20,6 +20,8 @@ if table_exists is None:
     c.execute('''CREATE TABLE personnes
                  (nom text, prenom text, age int,sexe text,nommaladie text, duree text, types int)''')
     
+#alter_table = c.execute('''ALTER TABLE personnes ADD COLUMN hopital text ''')  
+
 # Enregistrer les changements et fermer la connexion
 conn.commit()
 conn.close()
@@ -41,10 +43,10 @@ def ajouter():
     duree = request.form['duree']
     types = request.form['types']
     pays = request.form['pays']
-
+    hopital=request.form['hopital']
     conn = sqlite3.connect('formation.db')
     c = conn.cursor()
-    c.execute('INSERT INTO personnes VALUES (?, ?, ?,?,?,?,?,?)', (nom, prenom, age,sexe,nommaladie,duree,types,pays))
+    c.execute('INSERT INTO personnes VALUES (?, ?, ?,?,?,?,?,?,?)', (nom, prenom, age,sexe,nommaladie,duree,types,pays,hopital))
     conn.commit()
     conn.close()
     return redirect(url_for('afficher'))
